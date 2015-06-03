@@ -20,7 +20,7 @@ import (
 )
 
 type Request struct {
-	headers           []headerTuple
+	Headers           []headerTuple
 	Method            string
 	Uri               string
 	Body              interface{}
@@ -189,10 +189,10 @@ func SetConnectTimeout(duration time.Duration) {
 }
 
 func (r *Request) AddHeader(name string, value string) {
-	if r.headers == nil {
-		r.headers = []headerTuple{}
+	if r.Headers == nil {
+		r.Headers = []headerTuple{}
 	}
-	r.headers = append(r.headers, headerTuple{name: name, value: value})
+	r.Headers = append(r.Headers, headerTuple{name: name, value: value})
 }
 
 func (r Request) Do() (*Response, error) {
@@ -272,8 +272,8 @@ func (r Request) Do() (*Response, error) {
 		req.Header.Add("Content-Encoding", r.Compression.ContentEncoding)
 		req.Header.Add("Accept-Encoding", r.Compression.ContentEncoding)
 	}
-	if r.headers != nil {
-		for _, header := range r.headers {
+	if r.Headers != nil {
+		for _, header := range r.Headers {
 			req.Header.Add(header.name, header.value)
 		}
 	}
